@@ -23,6 +23,7 @@ On first run, execute `export FLASK_APP=FlaskRecap.py`. Then run `flask run --re
 
 <b>running using powershell</b>
 ```powershell
+> $ENV:FLASK_DEBUG=1
 > $ENV:FLASK_APP="flaskr"
 > flask run
 ```
