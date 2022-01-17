@@ -60,6 +60,12 @@ def create_app(test_config=None):
         greeting = Greeting(info['lang'], info['greeting'])
         greeting.insert()
         return jsonify({'greeting': greeting.format()})
+    
+    #TODO: implement beautifull greeting
+    @app.route('/greetings/<lang>/beautiful', methods=['POST'])
+    def beautiful_greeting(lang):
+        greeting = "namastai"
+        return jsonify({'greeting': f'greeting in language {lang} is {greeting}'})
     return app
     # if __name__ == "__main__":
     #     app.run(debug=True)

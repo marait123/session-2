@@ -51,6 +51,7 @@ class GreetingTestCase(unittest.TestCase):
                 cat = Greeting(**greeting)
                 self.db.session.add(cat)
                 self.db.session.commit()
+                
     # in case you want to clean the database after each request
     def tearDown(self):
         """Executed after each test"""
@@ -71,7 +72,7 @@ class GreetingTestCase(unittest.TestCase):
         # print(new_greeetings)
         self.assertEqual(200, 200)
 
-    #TODO: implement a test case to test getting one greeting
+    # test getting one greeting
     def test_one_greeting(self):
         print('hello test_one_greeting')
         res = self.client().get(f'/greetings/en')
@@ -81,6 +82,13 @@ class GreetingTestCase(unittest.TestCase):
          
         self.assertEqual(200, 200)
         self.assertEqual(new_greeting["greeting"]['greeting'], greetings[0]["greeting"])
+        
+    
+    #TODO: implement a test case to test getting one beautiful greeting
+    def test_beautiful_greeting(self):
+        print('hello test_beautiful_greeting')
+     
+        self.assertEqual(200, 200)
         
 # Make the tests conveniently executable
 if __name__ == "__main__":
