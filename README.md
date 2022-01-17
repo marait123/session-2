@@ -17,5 +17,12 @@ Run `pip install -r requirements.txt` to install any dependencies.
 Follow instructions on the [Postman docs](https://www.getpostman.com/) to install and run postman. Once postman is running, import the collection `./udacity-fsnd-flaskrecap.postman_collection.json`.
 
 ### Run the Server
+<b>running using gitbash</b>
 
 On first run, execute `export FLASK_APP=FlaskRecap.py`. Then run `flask run --reload` to run the developer server.
+
+<b>running using powershell</b>
+```powershell
+> $ENV:FLASK_APP="flaskr"
+> flask run
+```
