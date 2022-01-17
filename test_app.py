@@ -3,9 +3,10 @@ import unittest
 import json
 from flask_sqlalchemy import SQLAlchemy
 
-from flaskr import create_app
-
-database_name = "trivia_test"
+from flaskr import app
+# TODO: 
+# make sure you create a database named hello_test in psql 
+database_name = "hello_test"
 database_path = 'postgresql://postgres:123456@localhost:5432/{}'.format(
     database_name)
 
@@ -15,7 +16,7 @@ class TriviaTestCase(unittest.TestCase):
 
     def setUp(self):
         """Define test variables and initialize app."""
-        self.app = create_app()
+        self.app = app
         self.client = self.app.test_client
 
     def tearDown(self):
