@@ -19,11 +19,11 @@ Follow instructions on the [Postman docs](https://www.getpostman.com/) to instal
 ### Run the Server
 <b>running using gitbash</b>
 
-On first run, execute `export FLASK_APP=FlaskRecap.py`. Then run `flask run --reload` to run the developer server.
+On first run, execute `export FLASK_APP=flaskr`. Then run `flask run --reload` to run the developer server.
 
 <b>running using powershell</b>
 ```powershell
 > $ENV:FLASK_DEBUG=1
 > $ENV:FLASK_APP="flaskr"
-> flask run
+> flask run --reload
 ```
