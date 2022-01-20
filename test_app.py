@@ -70,20 +70,44 @@ class GreetingTestCase(unittest.TestCase):
         # print(res.data) # res.data is a of type string of characters
         new_greeetings = json.loads(res.data) # data is a of type string of characters
         # print(new_greeetings)
-        self.assertEqual(200, 200)
+        self.assertEqual(res.status_code, 200)
 
     # test getting one greeting
-    def test_one_greeting(self):
+    def test_one_greeting_ok(self):
         print('hello test_one_greeting')
         res = self.client().get(f'/greetings/en')
         # print("res " , res)
         new_greeting = json.loads(res.data)       
         # print("new_greeting ",new_greeting)
+        self.assertEqual(res.status_code, 200)
          
-        self.assertEqual(200, 200)
         self.assertEqual(new_greeting["greeting"]['greeting'], greetings[0]["greeting"])
         
     
+    # test getting one greeting
+    def test_one_greeting_404(self):
+        print('hello test_one_greeting_404')
+        res = self.client().get(f'/greetings/notfound')
+        # print("res " , res)
+        new_greeting = json.loads(res.data)       
+        # print("new_greeting ",new_greeting)
+        self.assertEqual(res.status_code, 404)
+         
+        # self.assertEqual(new_greeting["greeting"]['greeting'], greetings[0]["greeting"])
+        
+    
+    # test getting one greeting
+    def test_create_greeting_ok(self):
+        print('hello test_create_greeting_ok')
+        res = self.client().post(f'/greetings',json=dict(lang="french", greeting="bonjour"))
+        print("res " , res)
+        print("res.data " , res.data)
+        new_greeting = json.loads(res.data)       
+        # print("new_greeting ",new_greeting)
+        self.assertEqual(res.status_code, 201)
+         
+        # self.assertEqual(new_greeting["greeting"]['greeting'], greetings[0]["greeting"])
+        
     #TODO: implement a test case to test getting one beautiful greeting
     def test_beautiful_greeting(self):
         print('hello test_beautiful_greeting')

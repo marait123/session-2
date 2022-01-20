@@ -12,6 +12,17 @@ def create_app(test_config=None):
     # cors = CORS(app, resources={r"/api/*": {"origins": "*"}})
     cors = CORS(app, resources={"*": {"origins": "*"}})
 
+    @app.after_request
+    def after_request(response):
+        response.headers.add(
+                            'Access-Control-Allow-Headers',
+                            'Content-Type,Authorization,true'
+                            )
+        response.headers.add(
+                            'Access-Control-Allow-Methods',
+                            'GET,PATCH,POST,DELETE,OPTIONS'
+                            )
+        return response
     # example greetings
     greetings = {
         'en': 'hello',
@@ -47,7 +58,7 @@ def create_app(test_config=None):
         print(lang)
         # if(lang not in greetings):
         if(not greeting):
-            return jsonify({'error': "no greeting in this language"})
+            abort(404)
         return jsonify({'greeting': greeting.format()})
 
 
@@ -59,13 +70,26 @@ def create_app(test_config=None):
         # greetings[info['lang']] = info['greeting']
         greeting = Greeting(info['lang'], info['greeting'])
         greeting.insert()
-        return jsonify({'greeting': greeting.format()})
+        return jsonify({'greeting': greeting.format()}),201
     
     #TODO: implement beautifull greeting
     @app.route('/greetings/<lang>/beautiful', methods=['POST'])
     def beautiful_greeting(lang):
         greeting = "namastai"
         return jsonify({'greeting': f'greeting in language {lang} is {greeting}'})
+    @app.errorhandler(422)
+    def unprocessable(error):
+        return jsonify({
+        "success": False, 
+        "error": 422,
+        }), 422
+    @app.errorhandler(404)
+    def unprocessable(error):
+        return jsonify({
+        "message":"resource not found",
+        "success": False, 
+        "error": 404,
+        }), 404
     return app
     # if __name__ == "__main__":
     #     app.run(debug=True)
