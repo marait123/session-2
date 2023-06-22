@@ -6,7 +6,7 @@ import json
 
 # make sure you create a database named hello in psql
 database_name = "hello"
-database_path = 'postgresql://postgres:123456@localhost:5432/{}'.format(
+database_path = 'postgresql://mohammed:123456@localhost:5432/{}'.format(
     database_name)
 
 db = SQLAlchemy()
@@ -23,6 +23,7 @@ def setup_db(app, database_path=database_path):
     db.app = app
     db.init_app(app)
     db.create_all()
+    return db
 
 
 '''
@@ -40,14 +41,18 @@ class Greeting(db.Model):
     def __init__(self, lang, greeting):
         self.lang = lang
         self.greeting = greeting
+
     def update(self):
         db.session.commit()
+
     def insert(self):
         db.session.add(self)
         db.session.commit()
+
     def delete(self):
         db.session.delete(self)
         db.session.commit()
+
     def format(self):
         return {
             'lang': self.lang,

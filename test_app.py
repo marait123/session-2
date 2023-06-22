@@ -7,8 +7,8 @@ from models import Greeting, setup_db, db
 from flaskr import create_app
 # TODO:
 # make sure you create a database named hello_test in psql
-database_name = "hello_test"
-database_path = 'postgresql://postgres:123456@localhost:5432/{}'.format(
+database_name = "hello"
+database_path = 'postgresql://mohammed:123456@localhost:5432/{}'.format(
     database_name)
 greetings = [{'lang': 'en', 'greeting': 'hello'},
              {'lang': 'es', 'greeting': 'Hola'},
@@ -24,13 +24,14 @@ class GreetingTestCase(unittest.TestCase):
 
     def setUp(self):
         """Define test variables and initialize app.
-            it is run before each test
+        this method is executed before each test
+
         """
         self.app = create_app()
         self.client = self.app.test_client
         self.database_path = database_path
         setup_db(self.app, self.database_path)
-
+        self.greetings = []
         # binds the app to the current context
         # each flask app has a context that includes all of the apps configuration like database, password, etc
         with self.app.app_context():
@@ -48,9 +49,10 @@ class GreetingTestCase(unittest.TestCase):
         with self.app.app_context():
             # insert the categories
             for greeting in greetings:
-                cat = Greeting(**greeting)
-                self.db.session.add(cat)
+                greet = Greeting(**greeting)
+                self.db.session.add(greet)
                 self.db.session.commit()
+                self.greetings.append(greet)
                 
     # in case you want to clean the database after each request
     def tearDown(self):

@@ -1,1 +1,4 @@
 todo
+env
+__pycache__
+pyenv
